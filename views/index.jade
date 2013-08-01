@@ -1,0 +1,53 @@
+extends layout
+
+block content
+  h1= 'Novo usuário'
+  hr
+
+  .row(ng-controller='UsersCtrl')
+    .col-lg-4
+      form(ng-submit='createUser()', name='userForm', novalidate)
+        .form-group(ng-class='{\'has-error\':(userForm.name.$error.required && submitted)}')
+          label(for='user_name') Nome Completo
+          input(type='text', class='form-control', id="user_name", name='name', ng-model='newUser.name', required)
+          p.help-block(ng-show='userForm.name.$error.required && submitted') Não pode ficar em branco
+
+        .form-group(ng-class='{\'has-error\':(userForm.login.$error.required && submitted)}')
+          label(for='user_login') Login
+          input(type='text', class='form-control', id="user_login", name='login', ng-model='newUser.login', required)
+          p.help-block(ng-show='userForm.login.$error.required && submitted') Não pode ficar em branco
+
+        .form-group(ng-class='{\'has-error\':(userForm.password.$error.required && submitted)}')
+          label(for='user_password') Senha
+          input(type='password', class='form-control', id="user_password", name='password', ng-model='newUser.password', required)
+          p.help-block(ng-show='userForm.password.$error.required && submitted') Não pode ficar em branco
+
+        .row
+          .col-lg-6
+            .form-group(ng-class='{\'has-error\':((userForm.birthdate.$error.pattern || userForm.birthdate.$error.required) && submitted)}')
+              label(for='user_birthdate') Nascimento
+              input(type='text', class='form-control', id="user_birthdate", name='birthdate', ng-model='newUser.birthdate', ng-pattern="/^[0-9]{1,2}\/[0-9]{1,2}\/[0-9]{4}$/", placeholder='00/00/0000', required, autocomplete='off')
+              p.help-block(ng-show='userForm.birthdate.$error.required && submitted') Não pode ficar em branco
+              p.help-block(ng-show='userForm.birthdate.$error.pattern && submitted') Formato inválido
+
+            .form-group(ng-class='{\'has-error\':(userForm.phone.$error.required && submitted)}')
+              label(for='user_phone') Telefone
+              input(type='text', class='form-control', id="user_phone", name='phone', ng-model='newUser.phone', required)
+              p.help-block(ng-show='userForm.phone.$error.required && submitted') Não pode ficar em branco
+
+        button.btn.btn-primary(type='submit', ng-click='submitted=true') Cadastrar Usuário
+    .col-lg-7.col-offset-1
+      table.table.table-striped.table-bordered
+        tr
+          th Nome
+          th Login
+          th Data de nascimento
+          th Telefone
+        tr(ng-show='users.length == 0')
+          td(colspan='4')
+            = 'Nenhum usuário foi cadastrado ainda'
+        tr(ng-repeat='user in users')
+          td {{user.name}}
+          td {{user.login}}
+          td {{parseDate(user.birthdate)}}
+          td {{user.phone}}

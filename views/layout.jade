@@ -1,0 +1,25 @@
+doctype 5
+html
+  head
+    title= title
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    meta(charset='utf-8')
+    link(rel='stylesheet', href='/stylesheets/bootstrap.css')
+    link(rel='stylesheet', href='/stylesheets/style.css')
+
+  body
+    div.navbar.navbar-inverse.navbar-fixed-top
+      .container
+        a.navbar-brand(href='#') Test App - Node.JS
+    .container.main-container(ng-app='testApp')
+      block content
+
+    script(src='/javascripts/jquery.js')
+    script(src='/javascripts/bootstrap.js')
+    script(src='/javascripts/date.js')
+    script(src='/javascripts/angular/angular.js')
+    script(src='/javascripts/angular/angular-resource.js')
+    script(src='/javascripts/angular/app.js')
+    script(src='/javascripts/angular/directives/required.js')
+    script(src='/javascripts/angular/services/user.js')
+    script(src='/javascripts/angular/controllers/usersCtrl.js')
